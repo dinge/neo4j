@@ -27,7 +27,7 @@ module Neo4j
         @raw = raw
         self
       end
-      
+
       def outgoing(type = nil)
         @type = type
         @direction = org.neo4j.graphdb.Direction::OUTGOING
@@ -137,7 +137,13 @@ module Neo4j
           if @raw
             @relationships.each { |relationship| yield relationship.getOtherNode(@relationships.node) }
           else
-            @relationships.each { |relationship| yield relationship.getOtherNode(@relationships.node).wrapper }
+            @relationships.each do |relationship|
+              if relationship.respond_to?(:other_node)
+                yield relationship.other_node(@relationships.node)
+              else
+                yield relationship.getOtherNode(@relationships.node).wrapper
+              end
+            end
           end
         end
 
