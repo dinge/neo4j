@@ -182,7 +182,7 @@ module Neo4j
     #
     # ==== Example
     #
-    #   Neo4j.all_nodes{|node| puts "Node id ${node.neo_id"}
+    #   Neo4j.all_nodes{|node| puts "Node id #{node.neo_id}"}
     #
     def all_nodes(raw = false)
       iter = instance.all_nodes.iterator
