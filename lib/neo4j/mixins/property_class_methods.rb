@@ -113,6 +113,30 @@ module Neo4j::PropertyClassMethods
     properties_info[prop_name.to_sym][:defined] == true
   end
 
+  # Returns true if the given property names have been defined with the class
+  # method property or properties.
+  #
+  # Notice that the node may have properties that has not been declared.
+  # It is always possible to set an undeclared property on a node.
+  #
+  # ==== Example
+  # Person.properties?(:name, :age) # => true
+  #
+  # ==== Returns
+  # true or false
+  #
+  def properties?(*properties)
+    properties.flatten.all?{ |property| property?(property) }
+  end
+
+  # Returns an array with all defined property names as symbols
+  #
+  # ==== Returns
+  # Array
+  #
+  def property_names
+    properties_info.keys
+  end
 
   # Creates a struct class containig all properties of this class.
   #

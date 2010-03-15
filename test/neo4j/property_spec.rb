@@ -231,7 +231,7 @@ describe 'Neo4j properties' do
     @node.props.should have_key('p2')
   end
 
-  it "should know with properties has been defined on the class" do
+  it "should know which properties has been defined on the class" do
     TestNode.property?(:p1).should be_true
     TestNode.property?(:p2).should be_true
     TestNode.property?('p1').should be_true
@@ -239,6 +239,22 @@ describe 'Neo4j properties' do
 
     TestNode.property?(:p3).should be_false
     TestNode.property?("ojojoj").should be_false
+  end
+
+  it "should know if some properties has been defined on the class" do
+    TestNode.properties?(:p1, :p2).should be_true
+    TestNode.properties?('p1', 'p2').should be_true
+    TestNode.properties?(:p1, 'p2').should be_true
+    TestNode.properties?([:p1, :p2]).should be_true
+
+    TestNode.properties?(:p3).should be_false
+    TestNode.properties?(:p1, :p2, :p3).should be_false
+    TestNode.properties?([:p1, :p2, :p3]).should be_false
+  end
+
+  it "should return it's property names" do
+    TestNode.should have(2).property_names
+    TestNode.property_names.should == [:p1, :p2]
   end
 
   it "should allow to get a property that has not been set" do
