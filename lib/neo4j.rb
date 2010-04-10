@@ -46,6 +46,7 @@ require 'neo4j/relationship'
 require 'neo4j/version'
 
 
+require 'neo4j/extensions/reindexer'
 
 # 
 # Set logger used by Neo4j
