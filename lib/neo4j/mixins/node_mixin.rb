@@ -128,6 +128,9 @@ module Neo4j
       vo
     end
 
+    def inspect
+      props.inspect
+    end
 
     # --------------------------------------------------------------------------
     # Equal and hash methods
